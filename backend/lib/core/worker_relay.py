@@ -44,10 +44,9 @@ NEXT_TIMEOUT_S = 25.0
 #: giá trị đó: nó chỉ phục vụ `/api/*`, còn trang worker là file tĩnh do Next phục vụ, ở một
 #: tiền tố mà backend không nhìn thấy.
 #:
-#: Ngày 09/09/2026 webtool chuyển từ `157.66.101.73:3000` sang `tntecom.com/research`, và câu
-#: báo lỗi bên dưới — vốn ghi cứng `/worker` — thành ra chỉ người vận hành tới một địa chỉ 404.
-#: Đổi `basePath` mà quên dòng này là lặp lại đúng lỗi đó, nên nó nằm ở đây, có tên, thay vì
-#: nấp trong một chuỗi giữa hàm.
+#: Phải khớp với `basePath` trong `frontend/next.config.mjs`. Khi hai giá trị lệch nhau, liên kết
+#: hướng dẫn người dùng tới trang worker sẽ trả về 404. Đặt thành hằng số có tên giúp tránh một
+#: URL rải rác trong thân hàm.
 WORKER_PAGE_PATH = os.getenv("WORKER_PAGE_PATH", "/research/worker/index.html")
 
 
@@ -60,7 +59,7 @@ WORKER_TTL_S = 40.0
 #: `RS_TEMU_SUGGEST` gõ tối đa 12 cụm từ vào ô tìm kiếm Temu trong CÙNG một tab, mỗi cụm chờ
 #: gợi ý hiện ra — cả lượt tốn khoảng 40 giây, tức sát ngay `SUBMIT_TIMEOUT_S`. Gộp như vậy là
 #: cố ý: chia thành 12 job riêng thì mỗi job phải mở lại tab và xếp hàng riêng, một lượt tìm
-#: chiếm máy-thợ tới 3,6 phút và mọi người khác đứng chờ sau. Xem `providers/temu.py`.
+#: chiếm worker tới 3,6 phút và khiến các job phía sau phải chờ. Xem `providers/temu.py`.
 BATCH_TIMEOUT_S = 90.0
 
 #: Hạn riêng cho job TÌM BẰNG ẢNH.

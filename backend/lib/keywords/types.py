@@ -93,7 +93,7 @@ class KeywordCandidate(CamelModel):
     #: Những chữ thêm vào so với từ gốc — "suông", "ống rộng", "nam". Xếp hạng làm ở mức này.
     modifiers: list[str]
     intent: Intent
-    #: Từ chỉ mùa mà team quan tâm, ví dụ "mùa hè".
+    #: Từ chỉ mùa cần phân tích, ví dụ "mùa hè".
     seasonal: str | None = None
     #: Thứ hạng của từ khoá này TRONG TẬP KẾT QUẢ CỦA TỪNG NGUỒN, đánh số từ 1.
     #:

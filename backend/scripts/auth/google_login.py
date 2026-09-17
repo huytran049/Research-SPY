@@ -36,9 +36,8 @@ Vì thế script KHÔNG dừng ở chỗ thấy cookie. Nó gọi thật một l
 khi lời gọi đó trả về truy vấn thật. Một file phiên hợp lệ về hình thức nhưng vô dụng khi
 chạy còn tệ hơn là không có file nào.
 
-LƯU Ý: hãy dùng một tài khoản Google riêng cho việc này, đừng dùng tài khoản chính hay tài
-khoản công ty. Tự động hoá Trends bằng phiên đăng nhập là thứ Google có thể gắn cờ, và hậu
-quả rơi vào đúng tài khoản đó.
+LƯU Ý: hãy dùng một tài khoản Google riêng cho việc này, không dùng tài khoản chính. Tự động
+hoá Trends bằng phiên đăng nhập có thể bị Google gắn cờ, và ảnh hưởng sẽ áp dụng cho chính tài khoản đó.
 """
 
 from __future__ import annotations

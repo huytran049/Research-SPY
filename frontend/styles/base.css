@@ -1,7 +1,6 @@
 /* Biến màu, reset và kiểu chữ nền tảng. Đổi ở đây là đổi toàn bộ giao diện. */
 :root {
-  /* Brand orange, matched to the TNT Group internal platform so this tool reads as part
-     of the same suite rather than a separate product. */
+  /* Primary accent colour shared by the application shell and interactive controls. */
   --brand: #f26522;
   --brand-hover: #d9541a;
   --brand-soft: #fdf1e9;
@@ -109,4 +108,3 @@ textarea {
 a {
   color: inherit;
 }
-

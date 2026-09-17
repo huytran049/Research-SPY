@@ -5,11 +5,11 @@ CHUỖI JWT là "vé thông hành": user gõ username → server tạo vé kèm 
 localStorage → mỗi request kèm header `Authorization: Bearer <vé>`. Server không lưu vé, chỉ
 xác thực chữ ký — không phải track session tay, không phải revoke.
 
-TTL 7 ngày (JWT_TTL_HOURS) là hợp cho tool nội bộ. Muốn ngắn hơn → giảm biến; muốn revoke sớm
+TTL 7 ngày (JWT_TTL_HOURS) phù hợp cho môi trường phát triển hoặc tin cậy. Muốn ngắn hơn → giảm biến; muốn revoke sớm
 → đổi JWT_SECRET (mọi vé đã cấp cũng bị vô hiệu).
 
 `role` nằm trong payload (không phải query DB mỗi request) — nhanh, nhưng đổi role của user
-thì vé cũ vẫn còn hiệu lực tới khi hết hạn. Chấp nhận cho use case nội bộ.
+thì vé cũ vẫn còn hiệu lực tới khi hết hạn. Với yêu cầu thu hồi tức thời, cần lưu trạng thái phiên.
 """
 
 from __future__ import annotations

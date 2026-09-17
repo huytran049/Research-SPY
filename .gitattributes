@@ -1,5 +1,4 @@
-# Chuẩn hoá xuống dòng. Cả team đang dùng Windows nhưng repo lưu LF, để diff không bị
-# nhiễu bởi CRLF/LF khi người khác mở trên máy khác.
+# Chuẩn hoá xuống dòng để bản diff nhất quán trên mọi hệ điều hành.
 * text=auto eol=lf
 
 # Ngoại lệ: cmd.exe đọc file .bat theo từng dòng và cần CRLF. Với LF thì các khối

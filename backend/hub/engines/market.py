@@ -300,7 +300,7 @@ def analyze(limit: int = 5000) -> dict:
         rev_per_shop = row["revenue_30d"] / row["n_shops"]
         row2 = dict(row)
         row2["rev_per_shop"] = round(rev_per_shop)
-        # §4 tài liệu Long demo: listings_per_shop cao = chợ tập trung (vài shop
+        # listings_per_shop cao cho thấy thị trường tập trung ở một số ít cửa hàng.
         # ôm phần lớn listing), thấp = phân mảnh -> dễ chen chân hơn.
         row2["listings_per_shop"] = round(row["n_listings"] / row["n_shops"], 2)
         # §4 whitespace = cầu − cạnh tranh; ở cấp product type dùng

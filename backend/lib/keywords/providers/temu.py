@@ -25,9 +25,8 @@ HAI HỆ QUẢ, cả hai đều phải nói ra chứ không được giấu:
    không chọn được một thứ chắc chắn hỏng.
 
 2. HỎI GỘP MỘT LƯỢT, TRẦN 12 CỤM. Bộ mở rộng hỏi mỗi nguồn 12–45 lượt (`DEPTH_CALLS`). Ở đây
-   một lượt là một lần gõ vào trang thật, và cả công ty dùng chung MỘT máy-thợ chạy tuần tự:
-   hỏi riêng lẻ thì một người tìm từ khoá chiếm máy-thợ 3,6–13 phút, mọi người khác xếp hàng
-   sau. Gộp lại còn khoảng 40 giây cho cả lượt. Đổi lại: mức "Thường" và "Sâu" cũng chỉ được
+   một lượt là một lần gõ vào trang thật; worker xử lý tuần tự nên các truy vấn rời lẻ có thể
+   chiếm worker 3,6–13 phút. Gộp chúng lại còn khoảng 40 giây cho cả lượt. Đổi lại: mức "Thường" và "Sâu" cũng chỉ được
    12 cụm như mức "Nhanh" — cố ý, và `max_terms` là chỗ nói ra điều đó.
 """
 

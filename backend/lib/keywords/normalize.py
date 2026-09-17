@@ -29,7 +29,7 @@ from .market import language_chain, merge_by_language
 #: Các biến thể chính tả quan sát được trong dữ liệu thật.
 #:
 #: Cố ý chỉ giới hạn ở chính tả — gộp cả từ đồng nghĩa (kiểu nhập "quần bò" vào "quần jeans")
-#: sẽ trộn lẫn những từ khoá mà team cần nhìn tách bạch, vì chúng có lượng tìm và tệp khách
+#: sẽ trộn lẫn những từ khoá cần được xem riêng, vì chúng có lượng tìm và tệp khách
 #: hàng khác nhau.
 #:
 #: Chia theo ngôn ngữ là bắt buộc chứ không phải cho gọn: ba dòng của tiếng Việt quy "sort" và

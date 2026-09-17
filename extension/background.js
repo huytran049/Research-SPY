@@ -708,9 +708,8 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
  * MỘT tab xác minh cho mỗi sàn, dùng lại thay vì mở thêm.
  *
  * Bản trước gọi thẳng `tabs.create({active:true})` mỗi lần sàn bắt kéo slider. Trên máy một
- * người thì không sao; trên máy thợ dùng chung cả công ty thì mười lượt tìm bị chặn là mười
- * cửa sổ bật lên, không cái nào tự đóng — mà cũng không ai giải mười lần, vì giải một lần là
- * đủ cho cả máy (cookie xác minh theo hồ sơ).
+ * người thì không sao; trên worker dùng chung, mười lượt tìm bị chặn sẽ tạo mười cửa sổ không
+ * tự đóng. Chỉ cần xác minh một lần vì cookie được lưu theo hồ sơ trình duyệt.
  *
  * Vẫn `active: true` có chủ đích: mở lén ở tab nền thì không ai biết mà giải.
  */
@@ -1641,8 +1640,8 @@ function parseTemuTexts(texts, count) {
 //
 // GỘP NHIỀU CỤM VÀO MỘT JOB là điểm khác biệt lớn nhất so với các job crawl. Bộ mở rộng từ
 // khoá hỏi mỗi nguồn 12–45 lượt (`DEPTH_CALLS` ở backend). Nếu mỗi lượt là một job riêng thì
-// mỗi lượt phải mở lại tab, và MỘT người tìm từ khoá sẽ chiếm máy-thợ 3,6–13 phút trong khi cả
-// công ty đứng chờ sau — chỉ có một máy-thợ và nó chạy tuần tự. Gộp lại: mở tab một lần, gõ
+// mỗi lượt phải mở lại tab, có thể chiếm worker 3,6–13 phút vì worker xử lý tuần tự. Gộp lại:
+// mở tab một lần, gõ
 // lần lượt, cả lượt tốn khoảng 40 giây.
 //
 // KHÔNG BẤM ENTER, khác `searchTemu`: gợi ý bung ra khi ĐANG gõ. Bấm Enter là điều hướng sang

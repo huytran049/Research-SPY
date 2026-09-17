@@ -2,7 +2,7 @@
 NGUỒN: Shopee — tìm SẢN PHẨM (không phải quảng cáo).
 
 Đây là nguồn client_fetch đầu tiên (Cách A). Lý do bắt buộc phải fetch phía client, không
-phải chọn lựa: endpoint tìm sản phẩm `search_items` của Shopee trả **403 cho mọi người gọi
+phải chọn lựa: endpoint tìm sản phẩm `search_items` của Shopee trả **403 cho request ẩn danh
 ẩn danh từ server**, kể cả từ một trang trình duyệt đã làm nóng (đã đo 2026-07-28, xem
 `lib/keywords/providers/shopee.py`). Nhưng chính trình duyệt của user đã đăng nhập lại gọi
 được bình thường — nên server chỉ *dựng lệnh* (`build_request`), extension chạy bằng session

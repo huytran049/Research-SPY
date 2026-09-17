@@ -95,7 +95,7 @@ def _num(value: float) -> str:
 
 
 def _content(ad: Ad) -> tuple[float, list[str]]:
-    """Chất lượng content: quảng cáo này có cho team thứ gì dùng được không?"""
+    """Đánh giá mức độ hữu ích của creative đối với quá trình nghiên cứu sản phẩm."""
     reasons: list[str] = []
     videos = sum(1 for c in ad.creatives if c.kind == "video")
     images = sum(1 for c in ad.creatives if c.kind == "image")

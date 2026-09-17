@@ -1,7 +1,7 @@
 """
 Xếp hạng từ khoá.
 
-Yêu cầu của team là "xếp theo mức độ phù hợp nhất", với Shopee và TikTok làm hai nguồn
+Mục tiêu là xếp hạng theo mức độ phù hợp, với Shopee và TikTok là hai nguồn
 đối chiếu ngang hàng với Google. Cách làm hiển nhiên nhất — xếp theo số nguồn cùng trả về
 đúng một từ khoá — không sống nổi khi gặp dữ liệu thật: trên ba nguồn với một từ gốc thật,
 chỉ 2 trong 28 từ khoá trùng nhau nguyên văn, vì mỗi nền tảng viết cùng một khái niệm một kiểu.

@@ -1,22 +1,20 @@
 """
-ĐƠN VỊ KINH DOANH (BU) — danh sách chốt, và chính sách đi theo từng BU.
+ĐƠN VỊ KINH DOANH (BU) — danh sách chuẩn hoá và chính sách theo từng đơn vị.
 
-ĐÂY LÀ NƠI DUY NHẤT PHẢI SỬA khi công ty thêm/bớt một BU. Ba nơi đọc nó: ô đăng ký, ô admin
-tạo tay, và ngưỡng xanh của bảng Giá vốn.
+Đây là nguồn cấu hình duy nhất cho lựa chọn BU, biểu mẫu quản trị và ngưỡng xanh của bảng Giá vốn.
 
-VÌ SAO PHẢI CHỐT DANH SÁCH. Trước 2026-09-10 `bu` là một ô CHỮ TỰ DO, và bốn tài khoản đầu
-tiên đã đẻ ra ba cách viết cho cùng một đơn vị:
+VÌ SAO PHẢI CHỐT DANH SÁCH. `bu` từng là một ô CHỮ TỰ DO, dẫn tới nhiều cách viết cho cùng một
+đơn vị:
 
     "Holding"  ×2      "Hoding"  ×1  (gõ thiếu chữ)      "HO"  ×1
 
 Với một ô hồ sơ để hiển thị thì ba cách viết ấy chỉ hơi xấu. Nhưng từ lúc BU quyết định một
 CON SỐ — ngưỡng xanh của tỷ giá — thì nó thành lỗi thật: "Hoding" không khớp khoá nào, nên
-người ấy âm thầm rơi về ngưỡng mặc định, và không có gì trên màn hình nói rằng họ vừa được
-áp một chính sách khác đồng nghiệp cùng phòng. Ô chọn thay ô gõ là cách rẻ nhất để chặn.
+người đó âm thầm rơi về ngưỡng mặc định mà giao diện không báo rõ. Dùng danh sách chọn thay vì
+ô nhập tự do giúp giữ dữ liệu nhất quán.
 
 NGƯỠNG XANH KHÔNG PHẢI MỘT CON SỐ CHUNG. Nó là mức chênh giá vốn tối thiểu để một sản phẩm
-được tô xanh (đáng nhập). BU1 đặt 20%, các đơn vị còn lại 30% — khác nhau vì cơ cấu chi phí
-khác nhau, không phải vì ai đó quên đồng bộ.
+được tô xanh (đáng nhập). Các đơn vị có thể dùng ngưỡng khác nhau để phản ánh cơ cấu chi phí.
 
 ĐÂY CHỈ LÀ MẶC ĐỊNH, KHÔNG PHẢI KHOÁ. Người dùng vẫn tự chỉnh được trong modal Giá vốn và lựa
 chọn của họ được nhớ lại; BU chỉ quyết định con số họ thấy ở lần đầu. Xem
@@ -35,8 +33,7 @@ BU_FX_GREEN_THRESHOLD: dict[str, int] = {
     "HO": 30,
 }
 
-#: Thứ tự hiện trong ô chọn. Không sắp lại theo bảng chữ cái — BU1/BU2/BU3 rồi HO là thứ tự
-#: người trong công ty vẫn đọc.
+#: Thứ tự hiển thị trong ô chọn, theo thứ tự cấu hình.
 BU_CHOICES: list[str] = list(BU_FX_GREEN_THRESHOLD)
 
 #: Dùng khi hồ sơ chưa có BU, hoặc BU ghi bằng một cách viết không còn nhận ra. Bằng đúng con

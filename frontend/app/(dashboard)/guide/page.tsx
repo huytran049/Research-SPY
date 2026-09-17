@@ -144,7 +144,7 @@ export default function GuidePage() {
               từ khoá đuôi dài, chấp nhận chờ lâu hơn.
             </li>
             <li>
-              <strong>Kết quả được cache 15 phút và dùng chung cả team.</strong> Bấm &ldquo;Làm mới&rdquo; nếu cần dữ
+              <strong>Kết quả được cache trong 15 phút để hạn chế request lặp lại.</strong> Bấm &ldquo;Làm mới&rdquo; nếu cần dữ
               liệu mới nhất.
             </li>
             <li>

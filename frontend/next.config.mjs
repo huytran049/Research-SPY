@@ -16,8 +16,7 @@ const BACKEND_URL = process.env.BACKEND_URL ?? 'http://127.0.0.1:8000'
 /**
  * Tiền tố đường dẫn của cả webtool. Rỗng = chạy ở gốc tên miền.
  *
- * Đặt `/research` vì webtool ở chung tên miền với những thứ khác của công ty: nó phải sống ở
- * `tntecom.com/research`, không được chiếm gốc `tntecom.com`.
+ * Dùng `/research` để ứng dụng có thể được triển khai dưới một tiền tố thay vì chiếm gốc tên miền.
  *
  * Next tự ghép tiền tố này vào `<Link href>`, `router.push()`, `next/image`, file trong
  * `public/`, và cả `source` của `rewrites()`/`headers()` bên dưới — nên ĐỪNG tự gõ `/research`

@@ -62,7 +62,7 @@ def env_map(prefix: str) -> dict[str, str]:
 
 @dataclass(frozen=True)
 class Config:
-    """Cache kết quả tìm kiếm. Dùng chung cả team — đây là lý do chính chỉ chạy một server."""
+    """Cache kết quả tìm kiếm trong tiến trình để giảm các request lặp lại."""
 
     cache_ttl_ms: float
     cache_max_entries: int

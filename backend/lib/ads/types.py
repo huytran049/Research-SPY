@@ -234,7 +234,7 @@ class PlatformStatus(CamelModel):
 # Fetch phía client (Cách A) — nguồn chạy bằng session đăng nhập của user
 # ---------------------------------------------------------------------------
 #
-# Một số sàn (Shopee, TikTok Shop…) chặn 403 mọi người gọi ẩn danh từ server, nhưng lại trả
+# Một số sàn (Shopee, TikTok Shop…) trả 403 cho request ẩn danh từ server, nhưng lại trả
 # dữ liệu bình thường cho chính trình duyệt user đã đăng nhập. Với các nguồn này, server chỉ
 # *dựng* lệnh fetch (`RequestSpec`) rồi để extension chạy bằng cookie của user; raw trả về
 # (`ClientResponse`) được gửi ngược lên server để `parse_response` chuẩn hoá. Cookie KHÔNG bao

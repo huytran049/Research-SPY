@@ -114,7 +114,7 @@ async def main() -> int:
             print(f'    ví dụ: "{r["keywords"][0]["display"]}" -> {" | ".join(r["keywords"][0]["score"]["reasons"])}')
 
         print("\n=== 6. Từ khoá theo mùa ===")
-        # Team yêu cầu rõ ("quần jeans mùa hè / mùa đông"). Mở rộng chỉ bằng chữ cái không ra
+        # Cần giữ hai biến thể theo mùa ("quần jeans mùa hè / mùa đông"). Mở rộng chỉ bằng chữ cái không ra
         # được cái nào; gieo thêm từ bổ nghĩa bán lẻ thì ra, nên test này giữ cho điều đó
         # không bị lùi lại.
         seasonal = [k for k in r["keywords"] if k.get("seasonal")]

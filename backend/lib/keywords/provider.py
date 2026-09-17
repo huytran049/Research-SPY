@@ -131,7 +131,7 @@ class KeywordProvider(ABC):
     #:
     #: `None` là không có trần — đúng cho mọi nguồn gọi HTTP thẳng, nơi một lượt gọi tốn vài
     #: trăm mili-giây. Trần sinh ra cho nguồn đi qua máy-thợ: ở đó một lượt gọi là một lần gõ
-    #: vào trang thật, và cả công ty dùng chung MỘT trình duyệt-thợ chạy tuần tự. Xem
+    #: vào trang thật và worker xử lý tuần tự. Xem
     #: `providers/temu.py`.
     max_terms: int | None = None
     #: Nguồn muốn nhận CẢ DANH SÁCH cụm trong một lời gọi thay vì từng cụm một.

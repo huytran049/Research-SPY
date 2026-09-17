@@ -1,113 +1,86 @@
 # Research SPY
 
-Công cụ nội bộ cho phòng test sản phẩm. Bốn mục lớn, độc lập với nhau:
+> Nền tảng phân tích cơ hội sản phẩm, giúp đội Product và Marketing chuyển dữ liệu phân tán thành quyết định có thể hành động.
 
-| Mục | Đường dẫn | Làm gì | Lấy dữ liệu từ |
-|---|---|---|---|
-| **Sản phẩm & Content** | `/ads` | Top sản phẩm đa sàn, content quảng cáo đang chạy, video theo sản phẩm | Facebook Ads Library, YouTube, video TikTok *(qua Bing)*, Etsy *(qua server)* · **Shopee, TikTok Shop, Amazon, Taobao, 1688, Temu, video TikTok/Douyin** *(qua extension)* |
-| **Từ khoá** | `/keywords` | Mở rộng từ khoá gốc ra biến thể đang được tìm kiếm, đo xu hướng | Google Suggest, Shopee, TikTok, Google Trends, 1688, Amazon, Douyin |
-| **Tìm bằng ảnh** | `/image` | Một tấm ảnh, ra nguồn hàng và giá ở năm sàn | 1688, Alibaba.com, AliExpress, Taobao, Google Lens |
-| **Cơ hội** | `/opportunity` | Hỏi đáp về khoảng trống thị trường trên dữ liệu đã thu | tổng hợp từ ba mục trên |
-
-Ngoài ra có `/guide` — trang hướng dẫn đọc số liệu, **nên đọc trước khi ra quyết định test sản phẩm**.
+Research SPY là sản phẩm nội bộ tôi phát triển chính (**main developer**) cho khoảng **100 người dùng** thuộc Product và Marketing. Thay vì phải mở từng sàn, đối chiếu quảng cáo, xu hướng tìm kiếm và nguồn hàng bằng tay, người dùng thực hiện toàn bộ quy trình nghiên cứu trong một workspace duy nhất.
 
 > **Chỉ muốn chạy thử?** Đọc [QUICKSTART.md](QUICKSTART.md) — mười phút, không cần hiểu phần còn lại.
 
-**Một số nguồn chạy trong trình duyệt của bạn, không phải trên server.** Shopee và TikTok Shop
-trả 403 cho mọi lượt gọi ẩn danh từ server, nhưng trả dữ liệu bình thường cho chính phiên đăng
-nhập của bạn. Phần đó do [extension/](extension/) đảm nhiệm, và cookie không bao giờ rời trình
-duyệt. Xem [extension/README.md](extension/README.md) để cài — hai phút, chế độ dev của Chrome.
+---
+
+## Quy mô và tác động
+
+- Khoảng **100 người dùng** thuộc Product và Marketing.
+- Khoảng **60.000 sản phẩm được quét mỗi ngày** cho Trend Signal Hub.
+- Gom quy trình nghiên cứu vốn trải trên nhiều nền tảng về một nơi — từ khám phá sản phẩm đến kiểm chứng nguồn hàng và tín hiệu thị trường.
+- Vận hành **production 24/7** trên VPS.
 
 ---
 
-## Hai tiến trình
+## Bài toán giải quyết
 
-Dự án chia làm hai phần chạy song song:
+Khi đánh giá một ý tưởng sản phẩm, đội ngũ cần trả lời nhanh những câu hỏi:
+
+- Sản phẩm này đang được bán ở đâu, mức giá nào và có tín hiệu nhu cầu không?
+- Đối thủ đang chạy nội dung hoặc quảng cáo gì?
+- Khách hàng đang tìm kiếm theo những cách nào?
+- Có thể tìm được nguồn hàng tương tự ở đâu?
+- Đây là tín hiệu ngắn hạn hay một cơ hội đáng theo dõi?
+
+Research SPY kết nối các bước đó thành một quy trình nghiên cứu liền mạch.
+
+---
+
+## Tính năng chính
+
+| Mục | Đường dẫn | Làm gì | Lấy dữ liệu từ |
+|---|---|---|---|
+| **Sản phẩm & Content** | `/ads` | Top sản phẩm đa sàn, content quảng cáo đang chạy, video theo sản phẩm | Facebook Ads Library, YouTube, video TikTok *(qua Bing)*, Etsy *(qua server)* · **Shopee, TikTok Shop, Amazon, Taobao, 1688, Temu, TikTok/Douyin** *(qua extension)* |
+| **Từ khoá** | `/keywords` | Mở rộng từ khoá gốc ra biến thể đang được tìm kiếm, đo xu hướng | Google Suggest, Shopee, TikTok, Google Trends, 1688, Amazon, Douyin |
+| **Tìm bằng ảnh** | `/image` | Một tấm ảnh, ra nguồn hàng và giá ở năm sàn | 1688, Alibaba.com, AliExpress, Taobao, Google Lens |
+| **Cơ hội** | `/opportunity` | Hỏi đáp về khoảng trống thị trường trên dữ liệu đã thu | Tổng hợp từ ba mục trên |
+
+Ngoài ra có `/guide` — trang hướng dẫn đọc số liệu, **nên đọc trước khi ra quyết định test sản phẩm**.
+
+---
+
+## Vai trò của tôi
+
+Là **main developer**, tôi phụ trách xuyên suốt từ khám phá yêu cầu đến vận hành:
+
+- Trực tiếp làm việc với người dùng, leader và CEO để làm rõ yêu cầu, chọn phạm vi tính năng và đưa quyết định sản phẩm vào triển khai.
+- Xây dựng toàn bộ nền tảng: backend, web app, Chrome Extension, hệ thống thu thập dữ liệu, dashboard tín hiệu và trợ lý hỏi đáp.
+- Thiết kế backend FastAPI theo kiến trúc adapter, chuẩn hoá giá, doanh số, đánh giá, video, từ khoá và dữ liệu quảng cáo từ nhiều sàn về một mô hình dùng chung cho frontend Next.js.
+- Xây dựng Chrome Extension (Manifest V3) và cơ chế long-poll worker relay để thực thi request ngay trong tab đã đăng nhập khi nền tảng chặn request từ VPS; cookie và trạng thái đăng nhập luôn ở lại trong trình duyệt người dùng.
+- Phát triển tìm kiếm ảnh: đối chiếu với kho nội bộ bằng CLIP embedding để nhận diện sản phẩm đã từng triển khai, đồng thời tìm nguồn hàng qua 1688, Alibaba, AliExpress, Taobao và Google Lens.
+- Xây dựng Trend Signal Hub quét khoảng 60.000 sản phẩm/ngày theo ngành, lưu snapshot 90 ngày và phân loại tín hiệu thành *Bứt tốc, Bùng nổ, Ổn định, Mới nổi* và *Cơ hội*.
+- Xây dựng trợ lý hỏi đáp thị trường theo hướng RAG: nhận diện ý định, lọc dữ liệu theo sàn/ngành/khoảng giá trước khi gọi LLM, rồi trả về số liệu và sản phẩm có thể kiểm chứng.
+- Triển khai và vận hành dịch vụ 24/7 trên VPS với HTTPS qua Caddy, Cloudflare CDN và CI/CD bằng GitHub Actions; pipeline kiểm tra Python, TypeScript, production build và Chrome Extension trước khi deploy.
+
+---
+
+## Công nghệ sử dụng
+
+FastAPI · Next.js · Chrome Extension (Manifest V3) · Playwright · PostgreSQL/SQLite · Caddy · Cloudflare · GitHub Actions
+
+---
+
+## Kiến trúc
+
+### Hai tiến trình chạy song song
 
 | Thư mục | Ngôn ngữ | Việc | Cổng |
 |---|---|---|---|
 | [backend/](backend/) | Python + FastAPI | Toàn bộ tầng dữ liệu: gọi nguồn, chấm điểm, cache, proxy media | 8000 |
-| [frontend/](frontend/) | TypeScript + Next.js | Chỉ giao diện. Không có logic nghiệp vụ nào | 3000 |
+| [frontend/](frontend/) | TypeScript + Next.js | Chỉ giao diện, không chứa logic nghiệp vụ | 3000 |
 
-Trình duyệt chỉ nói chuyện với cổng 3000. Mọi đường `/api/*` được Next chuyển tiếp sang
-backend (xem [frontend/next.config.mjs](frontend/next.config.mjs)), nên không có CORS và
-video vẫn phát được từ cùng một origin.
+Trình duyệt chỉ nói chuyện với cổng 3000. Mọi đường `/api/*` được Next chuyển tiếp sang backend (xem [frontend/next.config.mjs](frontend/next.config.mjs)), nên không có CORS và video vẫn phát được từ cùng một origin.
 
----
+**Một số nguồn chạy trong trình duyệt của người dùng, không phải trên server.** Shopee và TikTok Shop trả 403 cho mọi lượt gọi ẩn danh từ server, nhưng trả dữ liệu bình thường cho chính phiên đăng nhập của người dùng. Phần đó do [extension/](extension/) đảm nhiệm, và cookie không bao giờ rời trình duyệt.
 
-## Chạy dự án
+### Nguyên tắc tổ chức
 
-Cài một lần:
-
-```bash
-cd backend
-python -m pip install -r requirements.txt
-python -m playwright install chromium
-cp .env.example .env.local        # tuỳ chọn — chạy được mà không cần sửa gì
-
-cd ../frontend
-npm install
-```
-
-**Cài extension** (chỉ cần nếu muốn dùng Shopee / TikTok Shop / Amazon / 1688 trong mục Quảng cáo):
-
-1. Mở `chrome://extensions`
-2. Bật **Developer mode** ở góc phải trên
-3. **Load unpacked**, chọn thư mục [extension/](extension/)
-4. Đăng nhập sẵn một tab của sàn bạn định tra — extension mượn đúng phiên đó
-
-Không cài cũng không sao: Facebook, TikTok Creative Center, YouTube và Etsy chạy thẳng từ
-server. Thiếu extension thì mục Quảng cáo báo rõ ra chứ không lặng lẽ bỏ trống Shopee.
-
-Chạy hằng ngày: **nhấp đúp `start.bat`** ở thư mục gốc. Nó bật cả hai tiến trình trong hai
-cửa sổ riêng rồi mở trình duyệt. Muốn chạy bằng tay — hoặc cần đọc log của một bên — thì
-**dùng hai cửa sổ terminal**:
-
-```bash
-# cửa sổ 1
-cd backend
-python -m uvicorn app.main:app --port 8000
-
-# cửa sổ 2
-cd frontend
-npm run dev                       # http://localhost:3000
-```
-
-> **Đừng thêm `--reload` cho backend trên Windows.** Cờ đó khiến uvicorn chuyển sang
-> `WindowsSelectorEventLoopPolicy`, loop không sinh được tiến trình con, nên Playwright chết
-> ngay khi khởi động — mất cả Google Trends lẫn toàn bộ mục Quảng cáo. Sửa backend thì tắt
-> rồi bật lại bằng tay. (`--workers` dính đúng lỗi này.)
-
-Lệnh khác:
-
-```bash
-# backend/
-python -m uvicorn app.main:app --host 0.0.0.0 --port 8000   # mở cổng cho cả LAN
-python scripts/smoke/ads.py             # test đầu-cuối mục Quảng cáo
-python scripts/smoke/keywords.py        # test đầu-cuối mục Từ khoá
-python scripts/smoke/ui.py              # mở trình duyệt thật, click hết các nút, bắt lỗi client
-python scripts/audit/keyword_sources.py # đối chiếu độc lập: dữ liệu tool có khớp nguồn gốc không
-
-# frontend/
-npm run build                           # build production
-npm run start                           # chạy bản build, mở cổng 3000 cho cả LAN
-npm run typecheck                       # tsc --noEmit
-```
-
-Ba script đầu mặc định gọi backend ở cổng 8000; `ui.py` gọi giao diện ở cổng 3000. Đặt
-`BASE=http://localhost:3000` để chạy smoke qua đúng đường mà người dùng thật đi.
-
-> **Chỉ chạy một tiến trình backend.** Cache và kho phiên trình duyệt nằm trong bộ nhớ, nên
-> `--workers` sẽ nhân số request ra ngoài lên đúng bằng số worker — chính là thứ làm IP
-> chung bị chặn.
-
----
-
-## Cấu trúc thư mục
-
-Nguyên tắc: **mỗi mục lớn có một thư mục riêng ở cả ba tầng** (dữ liệu, giao diện, style).
-Nhìn đường dẫn của một file là biết ngay nó thuộc mục nào, nên đọc commit cũng dễ và hai
-người làm hai mục khác nhau gần như không đụng file của nhau.
+**Mỗi mục lớn có một thư mục riêng ở cả ba tầng** (dữ liệu, giao diện, style) — tách module rõ ràng để dễ mở rộng, dễ đọc commit và dễ onboard người mới. Nhìn đường dẫn một file là biết ngay nó thuộc mục nào.
 
 ```
 backend/
@@ -181,7 +154,6 @@ frontend/
 │   └── layout/              # Sidebar, BackendDown
 ├── public/
 │   └── research/            # TRANG RESEARCH — HTML/JS thuần, nhúng nguyên vào /ads
-│                            #   chuyển từ extension sang, cố ý KHÔNG viết lại thành React
 ├── lib/
 │   ├── api.ts               # địa chỉ backend cho server component
 │   ├── ads/                 # kiểu dữ liệu + extension.ts (cầu nối tới extension)
@@ -213,15 +185,57 @@ lib/ads  ✗  lib/keywords        (hai mục KHÔNG import lẫn nhau, kể cả
 frontend  ──►  backend qua HTTP  (giao diện không chứa logic nghiệp vụ nào)
 ```
 
-Hai mục dùng chung đúng ba thứ: cache, hàng đợi rate-limit, và cấu hình chung. Không dùng
-chung kiểu dữ liệu nào. `lib/keywords/providers/tiktok.py` và `lib/ads/platforms/tiktok.py`
-trùng tên nhưng là hai file không liên quan — một cái đọc gợi ý tìm kiếm, một cái đọc thư
-viện quảng cáo.
+Hai mục dùng chung đúng ba thứ: cache, hàng đợi rate-limit, và cấu hình chung — không dùng chung kiểu dữ liệu nào. `lib/keywords/providers/tiktok.py` và `lib/ads/platforms/tiktok.py` trùng tên nhưng là hai file không liên quan: một cái đọc gợi ý tìm kiếm, một cái đọc thư viện quảng cáo.
 
-**Kiểu dữ liệu tồn tại ở hai nơi.** `frontend/lib/*/types.ts` là bản mô tả hình dạng JSON mà
-`backend/lib/*/types.py` phát ra. TypeScript không kiểm tra được qua ranh giới HTTP, nên hai
-file cố ý giữ đúng thứ tự trường: sửa bên Python thì sửa luôn bên TypeScript, và đối chiếu
-bằng mắt là ra ngay.
+**Kiểu dữ liệu tồn tại ở hai nơi.** `frontend/lib/*/types.ts` là bản mô tả hình dạng JSON mà `backend/lib/*/types.py` phát ra. TypeScript không kiểm tra được qua ranh giới HTTP, nên hai file cố ý giữ đúng thứ tự trường: sửa bên Python thì sửa luôn bên TypeScript.
+
+---
+
+## Chạy dự án
+
+Cài một lần:
+
+```bash
+cd backend
+python -m pip install -r requirements.txt
+python -m playwright install chromium
+cp .env.example .env.local        # tuỳ chọn — chạy được mà không cần sửa gì
+
+cd ../frontend
+npm install
+```
+
+Chạy hằng ngày: **nhấp đúp `start.bat`** ở thư mục gốc (bật cả hai tiến trình rồi mở trình duyệt). Muốn chạy tay hoặc đọc log một bên thì dùng hai terminal:
+
+```bash
+# cửa sổ 1 — backend
+cd backend
+python -m uvicorn app.main:app --port 8000
+
+# cửa sổ 2 — frontend
+cd frontend
+npm run dev                       # http://localhost:3000
+```
+
+> **Đừng thêm `--reload` cho backend trên Windows.** Cờ đó khiến uvicorn chuyển sang `WindowsSelectorEventLoopPolicy`, loop không sinh được tiến trình con nên Playwright chết ngay khi khởi động — mất cả Google Trends lẫn toàn bộ mục Quảng cáo. Sửa backend thì tắt rồi bật lại bằng tay. (`--workers` dính đúng lỗi này.)
+
+Lệnh khác:
+
+```bash
+# backend/
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000   # mở cổng cho cả LAN
+python scripts/smoke/ads.py             # test đầu-cuối mục Quảng cáo
+python scripts/smoke/keywords.py        # test đầu-cuối mục Từ khoá
+python scripts/smoke/ui.py              # mở trình duyệt thật, click hết các nút, bắt lỗi client
+python scripts/audit/keyword_sources.py # đối chiếu độc lập: dữ liệu tool có khớp nguồn gốc không
+
+# frontend/
+npm run build                           # build production
+npm run start                           # chạy bản build, mở cổng 3000 cho cả LAN
+npm run typecheck                       # tsc --noEmit
+```
+
+Xem [QUICKSTART.md](QUICKSTART.md) để cài đặt bản local; ghi chú phát triển bổ sung ở [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -229,43 +243,8 @@ bằng mắt là ra ngay.
 
 Xem hướng dẫn đầy đủ kèm ví dụ ở **[CONTRIBUTING.md](CONTRIBUTING.md)**. Tóm tắt:
 
-* **Nguồn quảng cáo mới** (Shopee Ads, Google Ads, Lazada…): tạo
-  `backend/lib/ads/platforms/<tên>.py` kế thừa lớp `AdPlatform` ở
-  [backend/lib/ads/platform.py](backend/lib/ads/platform.py), rồi thêm một dòng vào
-  `backend/lib/ads/platforms/__init__.py`. Không phải sửa route, giao diện, proxy media hay
-  file cấu hình nào.
-* **Nguồn từ khoá mới**: tạo `backend/lib/keywords/providers/<tên>.py` theo
-  `backend/lib/keywords/provider.py`, thêm một dòng vào
-  `backend/lib/keywords/providers/__init__.py`.
-
----
-
-## File và thư mục KHÔNG commit
-
-Đã khai báo sẵn trong [.gitignore](.gitignore). Liệt kê lại ở đây để rõ lý do:
-
-| Đường dẫn | Vì sao không commit |
-|---|---|
-| `frontend/node_modules/` | Dựng lại được từ `package-lock.json`, hàng trăm MB |
-| `frontend/.next/` | Kết quả build, luôn dựng lại được |
-| `next-env.d.ts`, `*.tsbuildinfo` | Next.js và TypeScript tự sinh mỗi lần chạy |
-| `__pycache__/`, `*.pyc` | Python tự sinh |
-| `.env`, `.env.local` | **Chứa bí mật** (cookie Facebook). Chỉ commit `.env.example` |
-| `_archive/` | Kho script thăm dò một lần và dữ liệu dump — xem giải thích bên dưới |
-| `.probe/` | Ảnh chụp và JSON dump từ các lần thăm dò |
-| `*.log`, `screenshots/`, `coverage/` | Sản phẩm phụ khi chạy |
-| `.vscode/`, `.idea/`, `.DS_Store`, `Thumbs.db` | Cấu hình máy cá nhân và rác hệ điều hành |
-
-**Về `_archive/`:** thư mục này chứa 34 script thăm dò một lần đã dùng để tìm ra cách gọi
-được từng endpoint, cộng với ảnh và JSON dump của chúng. Chúng là *ghi chép nghiên cứu*,
-không phải phần mềm đang chạy — mỗi file chỉ trả lời đúng một câu hỏi rồi hết việc, và
-**mọi kết luận rút ra từ chúng đã được ghi thành comment ngay trong file của nguồn tương
-ứng** (ví dụ vì sao TikTok chỉ nhận `period` là 7/30/180, vì sao Shopee phải dùng
-`search_hint` chứ không phải `search_suggestion`). Chúng viết bằng TypeScript vì có từ trước
-khi dự án chuyển sang Python, nên không còn chạy được với repo hiện tại — giá trị nằm ở phần
-ghi chép, không ở phần code.
-
-Nếu muốn xoá hẳn cho gọn: `rm -rf _archive`.
+- **Nguồn quảng cáo mới** (Shopee Ads, Google Ads, Lazada…): tạo `backend/lib/ads/platforms/<tên>.py` kế thừa lớp `AdPlatform` ở [backend/lib/ads/platform.py](backend/lib/ads/platform.py), rồi thêm một dòng vào `backend/lib/ads/platforms/__init__.py`. Không phải sửa route, giao diện, proxy media hay file cấu hình nào.
+- **Nguồn từ khoá mới**: tạo `backend/lib/keywords/providers/<tên>.py` theo `backend/lib/keywords/provider.py`, thêm một dòng vào `backend/lib/keywords/providers/__init__.py`.
 
 ---
 
@@ -273,52 +252,25 @@ Nếu muốn xoá hẳn cho gọn: `rm -rf _archive`.
 
 Ba điều này ảnh hưởng trực tiếp tới việc đọc số liệu — trang `/guide` giải thích kỹ hơn:
 
-1. **"CVR ước lượng" không phải CVR thật.** Không nền tảng công khai nào cung cấp tỷ lệ
-   chuyển đổi; đó là dữ liệu riêng trong tài khoản advertiser. Con số này suy ra từ số ngày
-   quảng cáo đã chạy (55%), số biến thể creative (20%), CTR (15%) và tương tác (10%). Nó vẫn
-   được tính vì **thứ tự thẻ dựa vào nó**, nhưng cố ý KHÔNG hiện trên thẻ quảng cáo: với người
-   đi tìm sản phẩm để bán, một con số trộn sẵn không nói được gì mà số gốc — ngày chạy, biến
-   thể, CTR, đều in ngay trên thẻ — không nói rõ hơn.
+1. **"CVR ước lượng" không phải CVR thật.** Không nền tảng công khai nào cung cấp tỷ lệ chuyển đổi; đó là dữ liệu riêng trong tài khoản advertiser. Con số này suy ra từ số ngày quảng cáo đã chạy (55%), số biến thể creative (20%), CTR (15%) và tương tác (10%). Nó vẫn được tính vì **thứ tự thẻ dựa vào nó**, nhưng cố ý KHÔNG hiện trên thẻ quảng cáo. Thẻ **sản phẩm sàn** thì có hiện điểm và là điểm khác: *cầu* (số bán) và *chất lượng* (rating cùng số lượt đánh giá) — con số sàn công bố chứ không phải suy luận. Xem `backend/lib/ads/scoring.py`.
 
-   Thẻ **sản phẩm sàn** thì có hiện điểm, và là điểm khác: *cầu* (số bán) và *chất lượng*
-   (rating cùng số lượt đánh giá). Đó là con số sàn công bố chứ không phải suy luận, nên nó
-   nói thêm chứ không trộn lẫn. Xem `backend/lib/ads/scoring.py`.
+2. **TikTok không search được theo từ khoá.** Creative Center chỉ mở chức năng này cho tài khoản đã đăng nhập; phiên ẩn danh nhận về *0 kết quả kèm mã thành công* — trông hệt như "sản phẩm không có nhu cầu". Khi gặp trường hợp này, công cụ chuyển sang duyệt Top Ads theo CTR và **luôn kèm thông báo nói rõ**.
 
-2. **TikTok không search được theo từ khoá.** Creative Center chỉ mở chức năng này cho tài
-   khoản đã đăng nhập; phiên ẩn danh nhận về *0 kết quả kèm mã thành công* — trông hệt như
-   "sản phẩm không có nhu cầu". Khi gặp trường hợp này công cụ chuyển sang duyệt Top Ads theo
-   CTR và **luôn kèm thông báo nói rõ**. Thấy thông báo đó thì đừng kết luận về nhu cầu sản
-   phẩm, hãy nhìn phần Facebook.
+3. **Không có lượng search tuyệt đối.** Con số đó chỉ nằm trong Google Ads Keyword Planner và cần tài khoản quảng cáo đang tiêu tiền. Cột "Lượng tìm" vẽ **hình dạng** nhu cầu theo thời gian lấy từ Google Trends, kèm tháng cao điểm — dùng để chọn thời điểm test và so tính mùa vụ, không thay số liệu khi tính ngân sách.
 
-3. **Không có lượng search tuyệt đối.** Con số đó chỉ nằm trong Google Ads Keyword Planner và
-   cần tài khoản quảng cáo đang tiêu tiền. Cột "Lượng tìm" vẽ **hình dạng** nhu cầu theo thời
-   gian lấy từ Google Trends, kèm tháng cao điểm — dùng để chọn thời điểm test và so tính mùa
-   vụ giữa các từ khoá, không dùng thay số liệu khi tính ngân sách. Cột "Bảng xếp hạng" nói
-   nguồn nào *gợi ý* từ khoá đó và ở vị trí mấy — không phải doanh số. (Đo ngày 2026-07-28:
-   endpoint tìm sản phẩm của Shopee trả 403 với người gọi ẩn danh, search organic của TikTok
-   trả body rỗng, nên số lượt bán và lượt xem đều ngoài tầm với.)
+4. **Ba ô Quốc gia / Thời gian / Loại tìm kiếm áp cho CẢ hai việc** — tìm ra từ khoá và vẽ đường lượng tìm. Đó là ba ô của chính Google Trends, nên đổi chúng là đổi câu hỏi chứ không phải đổi hiển thị. Mặc định: **Việt Nam · Năm qua · Tìm kiếm trên web**.
 
-4. **Ba ô chọn Quốc gia / Thời gian / Loại tìm kiếm áp cho CẢ hai việc** — tìm ra từ khoá, và
-   vẽ đường lượng tìm. Đó là ba ô của chính trang Google Trends, nên đổi chúng là đổi câu hỏi
-   chứ không phải đổi cách hiển thị: bảng truy vấn liên quan của "24 giờ qua" là một tập từ
-   khoá khác hẳn của "Năm qua", và "Google Mua sắm" lại là tập thứ ba. Mặc định là
-   **Việt Nam · Năm qua · Tìm kiếm trên web**. Chọn thị trường Shopee không có mặt thì chip
-   Shopee tự tắt — nó chỉ chạy ở VN, TH, PH, MY, ID, SG.
-
-**Chưa dùng proxy.** Tìm kiếm đa quốc gia chạy qua bộ lọc quốc gia của chính nền tảng, nghĩa
-là bạn thấy những gì một người ở Việt Nam nhìn thấy khi lọc theo nước đó, không phải những gì
-người bản địa nước đó nhìn thấy. Khi nào cần so sánh thị trường chính xác hơn thì bàn tiếp.
+**Chưa dùng proxy.** Tìm kiếm đa quốc gia chạy qua bộ lọc quốc gia của chính nền tảng — bạn thấy những gì một người ở Việt Nam nhìn thấy khi lọc theo nước đó, không phải những gì người bản địa nước đó nhìn thấy.
 
 ---
 
 ## Vận hành
 
-* **Chạy một server dùng chung cho cả team.** Cache 15 phút được chia sẻ, đó là lý do chính:
-  nhiều người search cùng một sản phẩm sẽ nhân số request ra ngoài lên và làm IP chung bị chặn.
-* **Không lưu video.** Media được phát xuyên qua `/api/media`, không ghi gì xuống đĩa. Link CDN
-  có chữ ký và hết hạn sau vài giờ — mở lại hôm sau thì search lại để lấy link mới.
-* **Chấm đỏ ở thanh trạng thái** nghĩa là nguồn đó đang có vấn đề, có thể nền tảng đã đổi cấu
-  trúc. File cần sửa khi đó chính là `backend/lib/ads/platforms/<tên nguồn>.py` và không file
-  nào khác.
-* **Trang báo "Chưa kết nối được tầng dữ liệu"** nghĩa là backend Python chưa chạy, không phải
-  công cụ hỏng. Bật lại `python -m uvicorn app.main:app` trong `backend/` rồi tải lại trang.
+- **Chạy một tiến trình backend dùng chung.** Cache và phiên trình duyệt giữ trong bộ nhớ; khởi nhiều worker sẽ nhân số request ra ngoài và dễ khiến nguồn dữ liệu giới hạn truy cập.
+- **Không lưu video.** Media phát xuyên qua `/api/media`, không ghi xuống đĩa. Link CDN có chữ ký và hết hạn sau vài giờ — mở lại hôm sau thì search lại để lấy link mới.
+- **Chấm đỏ ở thanh trạng thái** nghĩa là nguồn đó đang có vấn đề, có thể nền tảng đã đổi cấu trúc. File cần sửa khi đó là `backend/lib/ads/platforms/<tên nguồn>.py` và không file nào khác.
+- **Trang báo "Chưa kết nối được tầng dữ liệu"** nghĩa là backend Python chưa chạy, không phải công cụ hỏng. Bật lại `python -m uvicorn app.main:app` trong `backend/` rồi tải lại trang.
+
+---
+
+*Đây là sản phẩm nội bộ; repository này được dùng để thể hiện phạm vi thiết kế và phát triển của cá nhân tôi.*

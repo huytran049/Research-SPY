@@ -1,7 +1,7 @@
-# Hướng dẫn làm việc trên Research SPY
+# Ghi chú phát triển Research SPY
 
-Đọc [README.md](README.md) trước để nắm cấu trúc thư mục. File này nói về *cách thêm code
-mới* sao cho không phá vỡ ranh giới giữa hai mục lớn.
+Đọc [README.md](README.md) trước để nắm cấu trúc thư mục. Đây là ghi chú kỹ thuật tôi dùng khi
+thêm code mới, nhằm giữ ranh giới giữa hai mảng nghiệp vụ rõ ràng.
 
 ---
 

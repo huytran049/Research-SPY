@@ -1,9 +1,9 @@
 """
-Đăng nhập bằng EMAIL công ty + hồ sơ (Tên · Vị trí · BU), có DUYỆT.
+Đăng nhập bằng email thuộc miền được phép kèm hồ sơ người dùng, có bước phê duyệt.
 
 LUỒNG:
   1. POST /api/auth/login { email }
-     - email sai domain công ty → 400
+     - email không thuộc miền được phép → 400
      - email CHƯA có trong DB → 200 { needsRegistration: true } → frontend hiện form 3 trường
      - đã có, status=pending  → 403 { pending: true }  → trang chờ
      - đã có, status=rejected → 403 { error }
@@ -12,9 +12,9 @@ LUỒNG:
      - đủ 3 trường + đúng domain → tạo bản ghi pending → 202 { pending: true }
   3. Trang chờ POLL lại /login mỗi ~15s. Khi admin duyệt → /login trả token → vào app.
 
-KHÔNG CÓ PASSWORD (nội bộ): rào chắn là domain email + admin duyệt tay + backend chạy nội bộ.
-Ai biết email đồng nghiệp về lý thuyết mạo danh được — chấp nhận cho tool nội bộ. Cần chặt hơn
-thì thêm OTP gửi mail sau, kiến trúc không đổi.
+Luồng này dùng email-domain allowlist và phê duyệt thủ công, không xác minh quyền sở hữu email.
+Chỉ nên dùng trong môi trường tin cậy. Với triển khai công khai, cần tích hợp SSO hoặc xác minh
+OTP trước khi cấp token.
 """
 
 from __future__ import annotations
@@ -35,7 +35,7 @@ from lib.core.jwt_util import sign, JWTError, is_configured as jwt_ready
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
-#: Domain email công ty được phép. Đổi ở .env.local (ALLOWED_EMAIL_DOMAIN) nếu công ty đổi tên miền.
+#: Miền email được phép. Cấu hình bằng `ALLOWED_EMAIL_DOMAIN` trong `.env.local`.
 _ALLOWED_DOMAIN = env_string("ALLOWED_EMAIL_DOMAIN", "tntecom.com").lower()
 _EMAIL_RE = re.compile(r"^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$")
 
@@ -64,7 +64,7 @@ def _legacy_username(email: str) -> str:
     """
     Sinh giá trị cho cột `username` legacy từ email, thoả CHECK(~ '^[a-z0-9._-]+$').
     Thay mọi ký tự ngoài [a-z0-9._-] (gồm '@') bằng '-'. Đơn ánh gần như tuyệt đối với email
-    công ty thật (local-part chỉ chữ/số/dấu chấm) nên không đụng UNIQUE.
+    thông thường (local-part chỉ chữ/số/dấu chấm) nên không đụng UNIQUE.
     """
     return re.sub(r"[^a-z0-9._-]", "-", email.lower())
 
@@ -104,7 +104,7 @@ def _public_user(u: dict) -> dict:
 
 def _domain_error():
     return JSONResponse(
-        {"error": f"Chỉ nhận email công ty @{_ALLOWED_DOMAIN}."},
+        {"error": f"Chỉ nhận email thuộc miền @{_ALLOWED_DOMAIN}."},
         status_code=400,
     )
 
@@ -112,8 +112,8 @@ def _domain_error():
 def _supa_error(e: Exception, where: str) -> JSONResponse:
     """Một lời gọi Supabase ném lỗi. Ghi traceback đầy đủ ra log service, và trả JSON có
     chi tiết (thay vì 500 trơ) để giao diện + chẩn đoán đọc được lý do thật — thường là
-    thiếu cột (migration chưa chạy) hoặc sai key. Đây là tool nội bộ nên lộ message DB
-    chấp nhận được; không lộ secret vì message của PostgREST chỉ nói tên cột/bảng."""
+    thiếu cột (migration chưa chạy) hoặc sai key. Không trả secret; thông báo từ PostgREST chỉ
+    chứa tên cột hoặc bảng. Bản triển khai công khai nên thay chi tiết này bằng mã lỗi chung."""
     log.exception("Supabase '%s' lỗi: %s", where, e)
     return JSONResponse(
         {"error": f"Lỗi truy vấn dữ liệu người dùng ({where}): {e}"},

@@ -24,7 +24,7 @@ MỘT MÔ HÌNH DỰ PHÒNG (GLM-4.7-Flash của z.ai) ĐÃ ĐƯỢC DỰNG XONG
 Ghi lại để không ai dựng lại rồi phát hiện cùng những điều đó lần nữa.
 
 Nó được thử vì hai lý do đúng: miễn phí không giới hạn ngày (hạn mức Gemini là ~1000 lượt/ngày
-dùng chung cả team), và là mô hình Trung Quốc bản địa nên đáng ngờ là dịch tiếng Trung sát hơn.
+dùng chung trong ứng dụng), và là mô hình Trung Quốc bản địa nên có thể dịch tiếng Trung sát hơn.
 Đo trên cùng 24 từ khoá và cùng prompt thì cả hai lý do đều không đứng vững:
 
     nhãn          23,5/24 trung bình, so với 24/24 của Gemini

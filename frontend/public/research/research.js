@@ -1385,8 +1385,8 @@ async function fetch1688Extension(keyword, count) {
 // cái IP mà Facebook Ad Library trả 0 kết quả): 15/15 lượt thành công, trung vị 996ms, 300/300
 // mục đủ trường. Chi tiết trong docstring `backend/lib/ads/platforms/ali1688.py`.
 //
-// Cái được không phải là tốc độ một lượt, mà là thoát HÀNG ĐỢI TAB: cả công ty dùng chung một
-// máy-thợ chạy tuần tự, nên mỗi sàn rút khỏi hàng đợi là mọi sàn còn lại nhanh lên. Và 1688
+// Lợi ích chính không nằm ở tốc độ một lượt mà ở việc giảm tải hàng đợi tab: worker xử lý tuần tự,
+// nên mỗi nguồn chuyển sang server sẽ giải phóng hàng đợi cho các nguồn còn lại. Và 1688
 // giờ chạy được cả khi không có máy-thợ nào online — trước đây không thợ là sàn này tắt hẳn.
 //
 // CHỈ hạ xuống extension khi server THẤT BẠI, không hạ khi server chạy được mà từ khoá không

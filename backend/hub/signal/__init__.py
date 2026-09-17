@@ -13,7 +13,7 @@ snapshot) và trả hình dạng khác; trộn chung thư mục thì sáu tháng
 ĐIỀU PHẢI BIẾT TRƯỚC KHI SỬA CÔNG THỨC. Google Trends KHÔNG cho lượt tìm tuyệt đối — nó cho
 chỉ số 0–100 chuẩn hoá trong nội bộ MỘT truy vấn. Spec gốc (`Tín hiệu gg Trends.docx`) giả
 định `value` là lượt thật (vd 342) và `MIN_LUOT = 150` áp thẳng; giả định đó không đúng với
-dữ liệu chúng ta lấy được, nên ngưỡng quy mô ở đây là `MIN_INDEX` trên thang 0–100 và mọi
+dữ liệu hiện có, nên ngưỡng quy mô ở đây là `MIN_INDEX` trên thang 0–100 và mọi
 bản ghi mang theo cờ `value_kind`. Ngày nào có nguồn lượt tuyệt đối thật, đổi cờ là xong,
 không phải sửa công thức: cả bốn chỉ số đều là TỈ LỆ nên bất biến với thang đo.
 """

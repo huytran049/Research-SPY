@@ -1,7 +1,7 @@
 """
 GET /api/media?url=… — proxy phát media.
 
-Yêu cầu từ team: xem creative thẳng trên trình duyệt mà không lưu video, vì ở khối lượng
+Mục tiêu của route này là phát creative trực tiếp trên trình duyệt mà không lưu video, vì ở khối lượng
 này lưu là không quản nổi. Hai thứ khiến `<video src>` thẳng không chạy được — CDN của
 các nền tảng đều chặn hotlink, và link của họ có chữ ký, hết hạn nhanh — nên request
 được chuyển tiếp qua đây kèm Referer phù hợp, không ghi gì xuống đĩa. Header Range được

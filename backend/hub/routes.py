@@ -407,7 +407,7 @@ def shops_quota():
 
 @router.get("/export/{table}.csv")
 def export_csv(table: str, limit: int = 100000, platform: str | None = None):
-    """Xuất CSV để team tải về.
+    """Xuất tập dữ liệu hiện tại dưới dạng CSV.
 
     table: listings_unified (khuyên dùng — đã chuẩn hoá 2 sàn, có shop_name)
          · raw_listings · discovered_keywords · trends_cache
@@ -538,7 +538,7 @@ def entry_rate_api():
 def category_detail(name: str):
     """Số thật cho popup chi tiết ngành hàng.
 
-    Mọi trường đọc từ listing đã cào + taxonomy công ty. Không có thì trả null
+    Mọi trường đọc từ listing đã thu thập và taxonomy của ứng dụng. Không có thì trả null
     để frontend hiện "chưa đủ dữ liệu" — không suy số.
     """
     from .engines import market as _mkt
@@ -549,7 +549,7 @@ def category_detail(name: str):
         return {"available": False, "name": name,
                 "message": "Chưa có listing nào thuộc ngành hàng này"}
 
-    # product type CỦA ngành này, theo taxonomy công ty
+    # Product type của ngành này, theo taxonomy của ứng dụng.
     pts = [p["product_type"] for p in store.product_types
            if p.get("category") == row["name"]]
     # nhóm con nào ĐANG có doanh thu thật (thay cho tô xanh hardcode)
@@ -824,7 +824,7 @@ def scheduler_run(job: str = "all"):
 
 @router.get("/hub/metrics/{kw}")
 def hub_metrics(kw: str):
-    """Chỉ số theo công thức của data analyst (Long demo) — chạy trên data thật.
+    """Tính các chỉ số dashboard trên dữ liệu đã thu thập.
 
     competition đếm theo SHOP_ID · favorite_rate · whitespace ·
     confidence chiết khấu điểm · 9 tiêu chí pass/fail · luật rủi ro.

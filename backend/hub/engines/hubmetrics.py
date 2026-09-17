@@ -1,6 +1,6 @@
 """Chỉ số cơ hội cho một keyword, tính trên listing đã cào.
 
-Theo công thức trong frontend/Long demo/cong_thuc_chi_so_dashboard.md:
+Theo các công thức chỉ số của dashboard:
 competition đếm theo shop_id, favorite_rate = favorers/views,
 whitespace = demand − competition + 0.3·trend, và opportunity_shown =
 opportunity × confidence/100.
@@ -250,7 +250,7 @@ def compute(keyword: str) -> dict:
                       "Google Trends xếp Breakout — nền so sánh gần 0, "
                       "là tín hiệu MỚI chứ chưa phải tăng trưởng đã kiểm chứng."})
 
-    # ── HISTOGRAM cho 4 biểu đồ của Long demo ──
+    # ── Histogram cho bốn biểu đồ phân phối của dashboard ──
     def _bucket(vals, edges, labels):
         out = [0] * len(labels)
         for v in vals:

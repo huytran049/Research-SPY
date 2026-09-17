@@ -127,7 +127,7 @@ async def list_users(request: Request) -> JSONResponse:
         return _db_missing()
     supa = supabase_or_none()
     # Sắp xếp: pending lên đầu (chờ xử), rồi mới đến created_at. Postgrest không sort theo biểu
-    # thức nên lấy về hết rồi sort phía Python — bảng user nội bộ nhỏ, không đáng lo hiệu năng.
+    # thức nên lấy về hết rồi sort phía Python — bảng tài khoản nhỏ nên chi phí không đáng kể.
     res = supa.table("users").select(_SELECT).order("created_at", desc=True).execute()
     users = res.data or []
     users.sort(key=lambda u: 0 if (u.get("status") == "pending") else 1)
